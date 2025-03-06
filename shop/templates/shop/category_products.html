@@ -1,0 +1,41 @@
+{% extends 'shop/base.html' %}
+{% load static %}
+
+{% block title %}{{ category.name }} - ShopNow{% endblock %}
+
+{% block content %}
+<div class="container">
+    <h2 class="text-center mb-4">{{ category.name }}</h2>
+    
+    {% if products %}
+    <div class="row">
+        {% for product in products %}
+        <div class="col-md-4 mb-4">
+            <div class="card" style="border-radius: 15px;">
+                <img src="{{ product.image.url }}" class="card-img-top" alt="{{ product.name }}" style="border-radius: 15px 15px 0 0;">
+                <div class="card-body text-center">
+                    <h5 class="card-title">{{ product.name }}</h5>
+                    <p class="card-text text-muted">₹{{ product.price }}</p>
+                    <a href="{% url 'product_detail' product.id %}" class="btn btn-outline-success mb-2">View Details</a>
+                    <br>
+                    <div class="d-flex justify-content-center align-items-center gap-2 mt-2">
+                        <a class="nav-link p-0" href="{% url 'add_to_wishlist' product.id %}" title="Add to Wishlist">
+                            <img src="{% static 'images/image.png' %}" alt="wishlist" style="height: 30px;">
+                        </a>
+                    <a href="{% url 'add_to_cart' product.id %}" class="btn btn-primary">Add to Cart</a>
+                    </div>
+                </div>
+                
+            </div>
+        </div>
+        {% endfor %}
+    </div>
+    {% else %}
+        <p class="text-center">No products found in this category.</p>
+    {% endif %}
+    
+    <div class="text-center mt-4">
+        <a href="{% url 'home' %}" class="btn btn-secondary">Back to Home</a>
+    </div>
+</div>
+{% endblock %}

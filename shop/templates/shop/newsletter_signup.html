@@ -1,0 +1,50 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Newsletter Signup - My Shop</title>
+    <link rel="stylesheet" href="{% static 'css/bootstrap.min.css' %}">
+    <style>
+        .footer {
+            background-color: #f8f9fa;
+            padding: 20px;
+            position: absolute;
+            width: 100%;
+            bottom: 0;
+        }
+        .footer form {
+            display: inline-flex;
+            width: 100%;
+            justify-content: center;
+        }
+        .footer input {
+            width: 300px;
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Main content of your website -->
+    <div class="container">
+        <h1 class="text-center my-5">Welcome to My Shop</h1>
+        <p class="text-center">Explore our products and sign up for the latest offers!</p>
+    </div>
+
+    <!-- Newsletter Signup Footer -->
+    <footer class="footer mt-auto py-3">
+        <div class="container text-center">
+            <h5>Sign up for our Newsletter</h5>
+            <form action="{% url 'newsletter_signup' %}" method="post" class="form-inline">
+                {% csrf_token %}
+                <input type="email" name="email" placeholder="Enter your email" class="form-control mr-2" required>
+                <button type="submit" class="btn btn-primary">Subscribe</button>
+            </form>
+        </div>
+    </footer>
+
+    <!-- Scripts -->
+    <script src="{% static 'js/bootstrap.bundle.min.js' %}"></script>
+</body>
+</html>

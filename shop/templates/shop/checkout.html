@@ -1,0 +1,70 @@
+{% extends 'shop/base.html' %}
+
+{% block title %}Checkout - ShopNow{% endblock %}
+
+{% block content %}
+<div class="row justify-content-center">   
+    <div class="col-md-6">
+        <h2 class="text-center mb-4">Checkout</h2>
+        <form method="post" id="payment-form">
+            {% csrf_token %}
+            <div class="mb-3">
+                <label for="address" class="form-label">Shipping Address</label>
+                <input type="text" class="form-control" id="address" name="address" required>
+            </div>
+            <div class="mb-3">
+                <label for="payment" class="form-label">Payment Method</label>
+                <select class="form-select" id="payment" name="payment" required>
+                    <option value="stripe">Stripe</option>
+                </select>
+            </div>
+            <!-- Stripe Card Element -->
+            <div id="card-element" class="form-control">
+                
+            </div>
+            
+            <div id="card-errors" role="alert"></div>
+            <button type="submit" class="btn btn-success w-100 mt-4">Place Order</button>
+        </form>
+    </div>
+</div>
+
+<script src="https://js.stripe.com/v3/"></script>
+
+<script>
+    // Stripe client
+    var stripe = Stripe('pk_test_51PUQ9j08kJwp5jf1UytpdUJw2rHQERyN3VsC54CaOkYniNrVv08UrWkTN26OyKhc6A2loLOvJsMHjQxPIUpkToTG00dcIu0Rn4');  
+
+    //instance of Elements
+    var elements = stripe.elements();
+
+    // instance of the card Element
+    var card = elements.create('card');
+
+    card.mount('#card-element');
+
+    
+    var form = document.getElementById('payment-form');
+    form.addEventListener('submit', function(event) {
+        event.preventDefault();
+
+        stripe.createToken(card).then(function(result) {
+            if (result.error) {
+                
+                var errorElement = document.getElementById('card-errors');
+                errorElement.textContent = result.error.message;
+            } else {
+                
+                var hiddenInput = document.createElement('input');
+                hiddenInput.setAttribute('type', 'hidden');
+                hiddenInput.setAttribute('name', 'stripeToken');
+                hiddenInput.setAttribute('value', result.token.id);
+                form.appendChild(hiddenInput);
+
+               
+                form.submit();
+            }
+        });
+    });
+</script>
+{% endblock %}

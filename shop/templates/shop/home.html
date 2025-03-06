@@ -1,0 +1,36 @@
+{% extends 'shop/base.html' %}
+{% load static %}
+{% block title %}My Shop{% endblock %}
+
+{% block content %}
+
+
+<div class="hero-section text-center mb-5">
+    <img src="{% static 'images/home_page.jpeg' %}" alt="Welcome to My Shop" class="img-fluid">
+    <h1 class="mt-4">Welcome to the website!</h1>
+    <p>Discover a wide variety of products at unbeatable prices.</p>
+</div>
+
+
+<!-- Categories -->
+<div class="categories-section mb-5">
+    <h2 class="text-center mb-4">Shop by Category</h2>
+    <div class="row">
+        {% for category in categories %}
+        <div class="col-md-4 mb-4">
+            <div class="card" style="border-radius: 15px;">
+                {% if category.image %}
+                <img src="{{ category.image.url }}" class="card-img-top category-img" alt="{{ category.name }}">
+                {% else %}
+                    <img src="{% static 'images/default_category.jpg' %}" class="card-img-top category-img" alt="{{ category.name }}">
+                {% endif %}
+                <div class="card-body text-center">
+                    <h5 class="card-title">{{ category.name }}</h5>
+                    <a href="{% url 'category_products' category.id %}" class="btn btn-primary">View Products</a>
+                </div>
+            </div>
+        </div>
+        {% endfor %}
+    </div>
+</div>
+{% endblock %}

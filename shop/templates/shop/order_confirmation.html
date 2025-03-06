@@ -1,0 +1,25 @@
+{% extends 'shop/base.html' %}
+{% load static %}
+
+{% block title %}Order Confirmation - My Shop{% endblock %}
+
+{% block content %}
+<div class="container">
+    <h2 class="text-center mb-4">Order Confirmation</h2>
+    <div class="order-details p-4" style="background: #f8f9fa; border-radius: 10px;">
+        <p><strong>Order ID:</strong> {{ order.id }}</p>
+        <p><strong>Order Status:</strong> {{ order.order_status|title }}</p>
+        <p><strong>Shipping Address:</strong> {{ order.shipping_address }}</p>
+        <p><strong>Payment Method:</strong> {{ order.payment_method }}</p>
+        {% if order.tracking_number %}
+            <p><strong>Tracking Number:</strong> {{ order.tracking_number }}</p>
+        {% else %}
+            <p><strong>Tracking Number:</strong> Not available yet</p>
+        {% endif %}
+        <p><small class="text-muted">Order placed on: {{ order.created_at|date:"M d, Y" }}</small></p>
+    </div>
+    <div class="text-center mt-4">
+        <a href="{% url 'home' %}" class="btn btn-primary">Continue Shopping</a>
+    </div>
+</div>
+{% endblock %}

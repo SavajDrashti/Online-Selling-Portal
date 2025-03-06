@@ -1,0 +1,31 @@
+{% extends 'shop/base.html' %}
+{% load static %}
+
+{% block title %}Wishlist - My Shop{% endblock %}
+
+{% block content %}
+<div class="container">
+    <h2 class="text-center mb-4">My Wishlist</h2>
+    {% if products %}
+        <div class="row">
+            {% for product in products %}
+            <div class="col-md-4 mb-4">
+                <div class="card" style="border-radius: 15px;">
+                    <img src="{{ product.image.url }}" class="card-img-top" alt="{{ product.name }}" style="border-radius: 15px 15px 0 0;">
+                    <div class="card-body text-center">
+                        <h5 class="card-title">{{ product.name }}</h5>
+                        <p class="card-text text-muted">₹{{ product.price }}</p>
+                        <div class="justify-content-center gap-2">
+                            <a href="{% url 'product_detail' product.id %}" class="btn btn-outline-success mb-2">View Details</a>
+                            <a href="{% url 'remove_from_wishlist' product.id %}" class="btn btn-danger mb-2">Remove from Wishlist</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            {% endfor %}
+        </div>
+    {% else %}
+        <p class="text-center">Your wishlist is empty.</p>
+    {% endif %}
+</div>
+{% endblock %}

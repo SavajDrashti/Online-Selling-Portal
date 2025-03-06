@@ -1,0 +1,16 @@
+{% extends 'shop/base.html' %}
+
+{% block title %}Login - My Shop{% endblock %}
+
+{% block content %}
+<div class="row justify-content-center">
+    <div class="col-md-6">
+        <h2 class="text-center mb-4">Login</h2>
+        <form method="post">
+            {% csrf_token %}
+            {{ form.as_p }}  <!--form is dynamically rendered based on view.py-->
+            <button type="submit" class="btn btn-primary w-100">Login</button>
+        </form>
+    </div>
+</div>
+{% endblock %}
