@@ -27,6 +27,3 @@ urlpatterns = [
 
 if settings.DEBUG:
     urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
-else:
-    # In production, serve media files from the Render persistent storage directory
-    urlpatterns += static('/media/', document_root='/opt/render/project/src/media')
