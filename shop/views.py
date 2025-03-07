@@ -205,7 +205,7 @@ def logout_view(request):
 
 def search(request):
     query = request.GET.get('query', '')
-    results = Product.objects.filter(name__contains=query)
+    results = Product.objects.filter(name__icontains=query)
     context = {
         'query': query,
         'results': results,
