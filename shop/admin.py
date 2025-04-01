@@ -62,13 +62,13 @@ class ReviewAdmin(admin.ModelAdmin):
     readonly_fields = [field.name for field in Review._meta.fields]
 
     def has_add_permission(self, request):
-        return True
+        return False
     
     def has_change_permission(self, request, obj = None):
-        return True
+        return False
     
     def has_delete_permission(self, request, obj = None):
-        return True
+        return False
     
 class WishlistAdmin(admin.ModelAdmin):
 
